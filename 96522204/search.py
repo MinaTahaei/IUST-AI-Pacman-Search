@@ -145,11 +145,10 @@ def uniformCostSearch(problem):
     firstNode = problem.getStartState()
     if problem.isGoalState(firstNode):
         return []
-
+    
+    stack = util.PriorityQueue() 
     visited = []
 
-    stack = util.PriorityQueue()  
-    
     stack.push((firstNode, [], 0), 0) #node , action , cost , priority
 
     while not stack.isEmpty():
