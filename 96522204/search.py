@@ -107,6 +107,7 @@ def depthFirstSearch(problem):
                 return actions
 
             for nextNode, action, cost in problem.getSuccessors(currentNode):
+                
                 newAction = actions + [action]
                 stack.push((nextNode, newAction))
 
@@ -132,6 +133,7 @@ def breadthFirstSearch(problem):
                 return actions
 
             for nextNode, action, cost in problem.getSuccessors(currentNode):
+                
                 newAction = actions + [action]
                 stack.push((nextNode, newAction))
 
@@ -161,6 +163,7 @@ def uniformCostSearch(problem):
                 return actions
 
             for nextNode, action, cost in problem.getSuccessors(currentNode):
+                
                 newAction = actions + [action]
                 priority = previousCost + cost
                 stack.push((nextNode, newAction, priority),priority)
@@ -178,7 +181,34 @@ def nullHeuristic(state, problem=None):
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    
+    firstNode = problem.getStartState()
+    if problem.isGoalState(firstNode):
+        return []
+    
+    stack = util.PriorityQueue()
+    stack.push((firstNode, [], 0), 0)
+
+    visited = []
+
+    while not stack.isEmpty():
+
+        currentNode, actions, previousCost = stack.pop()
+
+        if currentNode not in visited:
+            visited.append(currentNode)
+
+            if problem.isGoalState(currentNode):
+                return actions
+
+            for nextNode, action, cost in problem.getSuccessors(currentNode):
+                
+                newAction = actions + [action]
+                newCost = previousCost + cost
+                costHeuristic = newCost + heuristic(nextNode,problem)
+                stack.push((nextNode, newAction, newCost),costHeuristic)
+
+    util.raiseNotDefined() #Goal not Defined
 
 
 # Abbreviations
