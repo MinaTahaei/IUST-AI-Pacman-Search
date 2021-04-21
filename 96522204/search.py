@@ -99,6 +99,7 @@ def depthFirstSearch(problem):
     
     while not stack.isEmpty():
         currentNode, actions = stack.pop()
+        
         if currentNode not in visited:
             visited.append(currentNode)
             
@@ -117,7 +118,7 @@ def breadthFirstSearch(problem):
     if problem.isGoalState(firstNode):
         return []
 
-    stack = util.Stack()
+    stack = util.Queue()
     stack.push((firstNode, []))
     visited = []
 
@@ -133,8 +134,8 @@ def breadthFirstSearch(problem):
             for nextNode, action, cost in problem.getSuccessors(currentNode):
                 newAction = actions + [action]
                 stack.push((nextNode, newAction))
-       
-    util.raiseNotDefined() #Goal Not Found
+
+    util.raiseNotDefined() #Goal Not Defined
     
 
 def uniformCostSearch(problem):
