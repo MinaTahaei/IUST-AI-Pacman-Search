@@ -94,9 +94,9 @@ def depthFirstSearch(problem):
         return []
 
     stack = util.Stack()
-    visited = []
     stack.push((firstNode, []))
-
+    visited = []
+    
     while not stack.isEmpty():
         currentNode, actions = stack.pop()
         if currentNode not in visited:
@@ -112,7 +112,29 @@ def depthFirstSearch(problem):
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    
+    firstNode = problem.getStartState()
+    if problem.isGoalState(firstNode):
+        return []
+
+    stack = util.Stack()
+    stack.push((firstNode, []))
+    visited = []
+
+    while not stack.isEmpty():
+        currentNode, actions = stack.pop()
+        
+        if currentNode not in visited:
+            visited.append(currentNode)
+
+            if problem.isGoalState(currentNode):
+                return actions
+
+            for nextNode, action, cost in problem.getSuccessors(currentNode):
+                newAction = actions + [action]
+                stack.push((nextNode, newAction))
+       
+    util.raiseNotDefined() #Goal Not Found
     
 
 def uniformCostSearch(problem):
